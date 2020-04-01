@@ -15,6 +15,26 @@ const List = ({ alphabet }) => (
 
 const alphabetArray = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
 
+const randomInteger = (min, max) => {
+  const rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+};
+
+const updateArray = array => {
+  const newArray = [...array];
+
+  for (let i = 0; i < randomInteger(0, array.length); i += 1) {
+    const firstIndex = randomInteger(0, array.length - 1);
+    const secondlIndex = randomInteger(0, array.length - 1);
+    [newArray[firstIndex], newArray[secondlIndex]] = [
+      newArray[secondlIndex],
+      newArray[firstIndex]
+    ];
+  }
+
+  return newArray;
+};
+
 class App extends Component {
   constructor() {
     super();
@@ -24,20 +44,19 @@ class App extends Component {
   }
 
   updateAlphabet() {
-    let { alphabet } = this.state;
-    alphabet = [...alphabet];
-    alphabet.reverse();
+    const { alphabet } = this.state;
+    const newAlphabetArray = updateArray(alphabet);
     this.setState({
-      alphabet
+      alphabet: newAlphabetArray
     });
   }
 
   render() {
     const { alphabet } = this.state;
 
-    // setTimeout(() => {
-    //   this.updateAlphabet();
-    // }, 5000);
+    setTimeout(() => {
+      this.updateAlphabet();
+    }, 5000);
 
     return <List alphabet={alphabet} />;
   }
