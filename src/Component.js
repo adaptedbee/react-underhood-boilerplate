@@ -9,7 +9,7 @@ class Component {
   setState(partialState) {
     this.state = {
       ...this.state,
-      partialState
+      ...partialState
     };
     updateInstance(this.__internalInstance); // eslint-disable-line no-underscore-dangle
   }

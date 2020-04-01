@@ -6,15 +6,21 @@ class OwnReact {
   }
 
   static createElement(type, props, ...children) {
-    return {
+    let element = {
       type,
       props: {
         ...props,
-        children: children.map(child =>
+        children: children.flatMap(child =>
           typeof child === "string" ? this.createTextElement(child) : child
         )
       }
     };
+
+    if (typeof type === "function") {
+      element = type(element.props);
+    }
+
+    return element;
   }
 
   static createTextElement(text) {
