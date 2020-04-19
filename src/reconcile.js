@@ -10,7 +10,7 @@ const reconcile = (parentDom, instance, element) => {
   } else if (element == null) {
     parentDom.removeChild(instance.dom);
     newInstance = null;
-  } else if (instance.element.type === element.type) {
+  } else if (instance.element.type && instance.element.type === element.type) {
     updateDomProperties(instance.dom, instance.element.props, element.props);
     newInstance = { ...instance };
     newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
