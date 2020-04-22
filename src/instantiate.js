@@ -4,10 +4,10 @@ import createPublicInstance from "./createPublicInstance"; // eslint-disable-lin
 const instantiate = element => {
   const { type, props } = element;
   const isDomElement = typeof type === "string";
+  const isTextElement = type === "TEXT ELEMENT";
 
   let instance = {};
   if (isDomElement) {
-    const isTextElement = type === "TEXT ELEMENT";
     const dom = isTextElement
       ? document.createTextNode(props.nodeValue)
       : document.createElement(type);

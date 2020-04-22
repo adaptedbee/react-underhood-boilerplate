@@ -1,5 +1,6 @@
 import OwnReact from "../src";
 import Component from "../src/Component";
+import randomInteger from "./utils";
 
 const ListItem = ({ children }) => <div>{children}</div>;
 
@@ -14,11 +15,6 @@ const List = ({ alphabet }) => (
 );
 
 const alphabetArray = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
-
-const randomInteger = (min, max) => {
-  const rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-};
 
 const updateArray = array => {
   const newArray = [...array];

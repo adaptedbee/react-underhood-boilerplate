@@ -1,8 +1,14 @@
 import reconcile from "./reconcile";
 
+const _rootInstance = null; // eslint-disable-line no-underscore-dangle
+
 class OwnReact {
-  constructor() {
-    this.rootInstance = null;
+  static get rootInstance() {
+    return _rootInstance;
+  }
+
+  static set rootInstance(newInstance) {
+    this._rootInstance = newInstance; // eslint-disable-line no-underscore-dangle
   }
 
   static createElement(type, props, ...children) {

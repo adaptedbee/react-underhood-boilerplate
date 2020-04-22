@@ -7,36 +7,38 @@ const reconcile = (parentDom, instance, element) => {
   if (instance == null) {
     newInstance = instantiate(element);
     parentDom.appendChild(newInstance.dom);
-  } else if (element == null) {
+    return newInstance;
+  }
+  if (element == null) {
     parentDom.removeChild(instance.dom);
     newInstance = null;
-  } else if (instance.element.type && instance.element.type === element.type) {
-    updateDomProperties(instance.dom, instance.element.props, element.props);
-    newInstance = { ...instance };
-    newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
-    newInstance.element = element;
-  } else if (typeof element.type === "string") {
-    updateDomProperties(instance.dom, instance.element.props, element.props);
-    newInstance = { ...instance };
-    newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
-    newInstance.element = element;
-  } else {
-    newInstance = { ...instance };
-    newInstance.publicInstance.props = element.props;
-    const childElement = newInstance.publicInstance.render();
-    const oldChildInstance = newInstance.childInstance;
-    const childInstance = reconcile(parentDom, oldChildInstance, childElement);
-    newInstance.dom = childInstance.dom;
-    newInstance.childInstance = childInstance;
-    newInstance.element = element;
+    return newInstance;
   }
+  if (
+    (instance.element.type && instance.element.type === element.type) ||
+    typeof element.type === "string"
+  ) {
+    updateDomProperties(instance.dom, instance.element.props, element.props);
+    newInstance = { ...instance };
+    newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
+    newInstance.element = element;
+    return newInstance;
+  }
+
+  newInstance = { ...instance };
+  newInstance.publicInstance.props = element.props;
+  const childElement = newInstance.publicInstance.render();
+  const oldChildInstance = newInstance.childInstance;
+  const childInstance = reconcile(parentDom, oldChildInstance, childElement);
+  newInstance.dom = childInstance.dom;
+  newInstance.childInstance = childInstance;
+  newInstance.element = element;
 
   return newInstance;
 };
 
 const reconcileChildren = (instance, element) => {
-  const { dom } = instance;
-  const { childInstances } = instance;
+  const { dom, childInstances } = instance;
   const nextChildElements = element.props.children || [];
   const newChildInstances = [];
   const count = Math.max(childInstances.length, nextChildElements.length);
@@ -46,7 +48,7 @@ const reconcileChildren = (instance, element) => {
     const newChildInstance = reconcile(dom, childInstance, childElement);
     newChildInstances.push(newChildInstance);
   }
-  return newChildInstances.filter(item => item != null);
+  return newChildInstances.filter(newChildInstance => newChildInstance != null);
 };
 
 export default reconcile;
