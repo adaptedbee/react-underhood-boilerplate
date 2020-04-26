@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import reconcile from "./reconcile";
 
 const _rootInstance = null; // eslint-disable-line no-underscore-dangle
@@ -16,7 +18,7 @@ class OwnReact {
       type,
       props: {
         ...props,
-        children: children.flatMap(child =>
+        children: _.flatMap(children, child =>
           typeof child === "string" ? this.createTextElement(child) : child
         )
       }
