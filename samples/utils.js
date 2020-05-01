@@ -3,7 +3,7 @@ export const randomInteger = (min, max) => {
   return Math.floor(rand);
 };
 
-export const updateArray = (array) => {
+export const updateArray = array => {
   const newArray = [...array];
 
   for (let i = 0; i < randomInteger(0, array.length); i += 1) {

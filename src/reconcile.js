@@ -1,5 +1,6 @@
 import instantiate from "./instantiate"; // eslint-disable-line import/no-cycle
 import updateDomProperties from "./updateDomProperties";
+import Component from "./Component"; // eslint-disable-line import/no-cycle
 
 const reconcile = (parentDom, instance, element) => {
   let newInstance;
@@ -15,7 +16,9 @@ const reconcile = (parentDom, instance, element) => {
     return newInstance;
   }
   if (
-    (instance.element.type && instance.element.type === element.type) ||
+    (instance.element.type &&
+      instance.element.type === element.type &&
+      !Component.isPrototypeOf(instance.element.type)) || // eslint-disable-line no-prototype-builtins
     typeof element.type === "string"
   ) {
     updateDomProperties(instance.dom, instance.element.props, element.props);
