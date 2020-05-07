@@ -15,4 +15,6 @@ class Component {
   }
 }
 
+Component.isComponent = true;
+
 export default Component;

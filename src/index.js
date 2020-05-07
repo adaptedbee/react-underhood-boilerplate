@@ -1,7 +1,6 @@
 import _ from "lodash";
 
 import reconcile from "./reconcile";
-import Component from "./Component";
 
 const _rootInstance = null; // eslint-disable-line no-underscore-dangle
 
@@ -25,8 +24,7 @@ class OwnReact {
       }
     };
 
-    // eslint-disable-next-line no-prototype-builtins
-    if (typeof type === "function" && !Component.isPrototypeOf(type)) {
+    if (typeof type === "function" && !type.isComponent) {
       element = type(element.props);
     }
 

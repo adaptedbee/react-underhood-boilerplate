@@ -1,6 +1,5 @@
 import instantiate from "./instantiate"; // eslint-disable-line import/no-cycle
 import updateDomProperties from "./updateDomProperties";
-import Component from "./Component"; // eslint-disable-line import/no-cycle
 
 const reconcile = (parentDom, instance, element) => {
   let newInstance;
@@ -20,7 +19,7 @@ const reconcile = (parentDom, instance, element) => {
   if (
     (instance.element.type &&
       instance.element.type === element.type &&
-      !Component.isPrototypeOf(instance.element.type)) || // eslint-disable-line no-prototype-builtins
+      !instance.element.type.isComponent) ||
     typeof element.type === "string"
   ) {
     // Обновляем инстанс DOM-элемента
