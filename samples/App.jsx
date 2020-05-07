@@ -9,25 +9,40 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      alphabet: alphabetArray
+      alphabet: alphabetArray,
+      textFilter: ""
     };
     this.updateAlphabet = this.updateAlphabet.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
   }
 
   updateAlphabet() {
     const { alphabet } = this.state;
     const newAlphabetArray = updateArray(alphabet);
     this.setState({
-      alphabet: newAlphabetArray
+      alphabet: newAlphabetArray,
+      textFilter: ""
+    });
+  }
+
+  handleTextInput(event) {
+    this.setState({
+      textFilter: event.target.value
     });
   }
 
   render() {
-    const { alphabet } = this.state;
+    const { alphabet, textFilter } = this.state;
 
     return (
       <div>
-        <button onClick={this.updateAlphabet} type="button">Обновить алфавит</button>
+        <input type="text" value={textFilter} onChange={this.handleTextInput} />
+        <br />
+        <br />
+
+        <button onClick={this.updateAlphabet} type="button">
+          Обновить алфавит
+        </button>
 
         <List alphabet={alphabet} />
       </div>
