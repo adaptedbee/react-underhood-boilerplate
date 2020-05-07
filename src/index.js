@@ -24,7 +24,7 @@ class OwnReact {
       }
     };
 
-    if (typeof type === "function") {
+    if (typeof type === "function" && !type.isComponent) {
       element = type(element.props);
     }
 

@@ -8,6 +8,7 @@ const instantiate = element => {
 
   let instance = {};
   if (isDomElement) {
+    // Создаём инстанс DOM-элемента
     const dom = isTextElement
       ? document.createTextNode(props.nodeValue)
       : document.createElement(type);
@@ -20,6 +21,7 @@ const instantiate = element => {
     childDoms.forEach(childDom => dom.appendChild(childDom));
     instance = { dom, element, childInstances };
   } else {
+    // Создаём инстанс компонента
     const publicInstance = createPublicInstance(element, instance);
     const childElement = publicInstance.render();
     const childInstance = instantiate(childElement);
