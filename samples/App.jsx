@@ -9,8 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      alphabet: alphabetArray,
-      textFilter: ""
+      alphabet: alphabetArray
     };
     this.updateAlphabet = this.updateAlphabet.bind(this);
     this.handleTextInput = this.handleTextInput.bind(this);
@@ -20,23 +19,42 @@ class App extends Component {
     const { alphabet } = this.state;
     const newAlphabetArray = updateArray(alphabet);
     this.setState({
-      alphabet: newAlphabetArray,
-      textFilter: ""
+      alphabet: newAlphabetArray
     });
   }
 
   handleTextInput(event) {
+    const sortString = event.target.value.toLowerCase();
+    const { alphabet } = this.state;
+    const arrayToSort = alphabet.filter(letter =>
+      sortString.includes(letter.toLowerCase())
+    );
+    const arrayNotToSort = alphabet.filter(
+      letter => !sortString.includes(letter.toLowerCase())
+    );
+
+    arrayToSort.sort((a, b) => {
+      if (sortString.indexOf(a) < sortString.indexOf(b)) {
+        return -1;
+      }
+      if (sortString.indexOf(a) > sortString.indexOf(b)) {
+        return 1;
+      }
+      return 0;
+    });
+
+    const finalArray = [...arrayToSort, ...arrayNotToSort];
     this.setState({
-      textFilter: event.target.value
+      alphabet: finalArray
     });
   }
 
   render() {
-    const { alphabet, textFilter } = this.state;
+    const { alphabet } = this.state;
 
     return (
       <div>
-        <input type="text" value={textFilter} onChange={this.handleTextInput} />
+        <input type="text" onInput={this.handleTextInput} />
         <br />
         <br />
 
