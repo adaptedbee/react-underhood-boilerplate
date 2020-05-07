@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       alphabet: alphabetArray
     };
+    this.updateAlphabet = this.updateAlphabet.bind(this);
   }
 
   updateAlphabet() {
@@ -24,11 +25,13 @@ class App extends Component {
   render() {
     const { alphabet } = this.state;
 
-    setTimeout(() => {
-      this.updateAlphabet();
-    }, 5000);
+    return (
+      <div>
+        <button onClick={this.updateAlphabet} type="button">Обновить алфавит</button>
 
-    return <List alphabet={alphabet} />;
+        <List alphabet={alphabet} />
+      </div>
+    );
   }
 }
 
