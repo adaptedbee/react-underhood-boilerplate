@@ -26,21 +26,13 @@ class App extends Component {
   handleTextInput(event) {
     const sortString = event.target.value.toUpperCase();
     const { alphabet } = this.state;
-    const arrayToSort = alphabet.filter(letter =>
-      sortString.includes(letter)
-    );
+    const arrayToSort = alphabet.filter(letter => sortString.includes(letter));
     const arrayNotToSort = alphabet.filter(
       letter => !sortString.includes(letter)
     );
 
     arrayToSort.sort((a, b) => {
-      if (sortString.indexOf(a) < sortString.indexOf(b)) {
-        return -1;
-      }
-      if (sortString.indexOf(a) > sortString.indexOf(b)) {
-        return 1;
-      }
-      return 0;
+      return sortString.indexOf(a) - sortString.indexOf(b);
     });
 
     const finalArray = [...arrayToSort, ...arrayNotToSort];
