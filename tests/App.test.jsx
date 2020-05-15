@@ -21,9 +21,17 @@ test("jsx works", () => {
 });
 
 test("alphabet sorting works", () => {
-  const alphabetArray = ["А", "Б", "В", "Г", "Д"];
-  const sortString = "ГБА";
-  const finalArray = ["Г", "Б", "В", "А", "Д"];
+  const alphabetArray1 = ["А", "Б", "В", "Г", "Д"];
+  const sortString1 = "ГБА";
+  const finalArray1 = ["Г", "Б", "В", "А", "Д"];
+  expect(sortAlphabetByString(alphabetArray1, sortString1)).toEqual(
+    finalArray1
+  );
 
-  expect(sortAlphabetByString(alphabetArray, sortString)).toEqual(finalArray);
+  const alphabetArray2 = ["А", "Б", "В", "Г", "Д"];
+  const sortString2 = "ОГПБА";
+  const finalArray2 = ["Г", "Б", "В", "А", "Д"];
+  expect(sortAlphabetByString(alphabetArray2, sortString2)).toEqual(
+    finalArray2
+  );
 });
