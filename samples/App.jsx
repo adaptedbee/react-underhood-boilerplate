@@ -54,9 +54,11 @@ class App extends Component {
 
     return (
       <div>
-        <input type="text" onInput={this.handleTextInput} />
-        <br />
-        <br />
+        <input
+          type="text"
+          onInput={this.handleTextInput}
+          style="display:block; margin-bottom: 20px;" // eslint-disable-line react/style-prop-object
+        />
 
         <button onClick={this.updateAlphabet} type="button">
           Обновить алфавит
