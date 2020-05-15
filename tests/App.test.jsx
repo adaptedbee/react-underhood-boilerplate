@@ -34,4 +34,11 @@ test("alphabet sorting works", () => {
   expect(sortAlphabetByString(alphabetArray2, sortString2)).toEqual(
     finalArray2
   );
+
+  const alphabetArray3 = ["А", "Б", "А", "В", "Г", "Д"];
+  const sortString3 = "ГБА";
+  const finalArray3 = ["Г", "Б", "А", "В", "А", "Д"];
+  expect(sortAlphabetByString(alphabetArray3, sortString3)).toEqual(
+    finalArray3
+  );
 });

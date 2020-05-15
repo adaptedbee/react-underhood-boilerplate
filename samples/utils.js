@@ -19,16 +19,18 @@ export const updateArray = array => {
 };
 
 export const sortAlphabetByString = (alphabetArray, sortString) => {
-  const sortStringPart = sortString
-    .split("")
-    .filter(letter => alphabetArray.includes(letter))
-    .join("");
+  const arrayToSort = alphabetArray.filter(letter =>
+    sortString.includes(letter)
+  );
+  arrayToSort.sort((a, b) => {
+    return sortString.indexOf(a) - sortString.indexOf(b);
+  });
 
   let j = 0;
   const finalArray = alphabetArray.map(letter => {
-    if (sortStringPart.includes(letter)) {
+    if (sortString.includes(letter)) {
       j += 1;
-      return sortStringPart[j - 1];
+      return arrayToSort[j - 1];
     }
 
     return letter;
