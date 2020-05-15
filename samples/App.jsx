@@ -1,6 +1,6 @@
 import OwnReact from "../src";
 import Component from "../src/Component";
-import { updateArray } from "./utils";
+import { updateArray, sortAlphabetByString } from "./utils";
 import List from "./List";
 
 const alphabetArray = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
@@ -26,16 +26,9 @@ class App extends Component {
   handleTextInput(event) {
     const sortString = event.target.value.toUpperCase();
     const { alphabet } = this.state;
-    const arrayToSort = alphabet.filter(letter => sortString.includes(letter));
-    const arrayNotToSort = alphabet.filter(
-      letter => !sortString.includes(letter)
-    );
 
-    arrayToSort.sort((a, b) => {
-      return sortString.indexOf(a) - sortString.indexOf(b);
-    });
+    const finalArray = sortAlphabetByString(alphabet, sortString);
 
-    const finalArray = [...arrayToSort, ...arrayNotToSort];
     this.setState({
       alphabet: finalArray
     });

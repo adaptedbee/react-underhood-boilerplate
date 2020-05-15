@@ -17,3 +17,20 @@ export const updateArray = array => {
 
   return newArray;
 };
+
+export const sortAlphabetByString = (alphabetArray, sortString) => {
+  const arrayToSort = alphabetArray.filter(letter =>
+    sortString.includes(letter)
+  );
+  const arrayNotToSort = alphabetArray.filter(
+    letter => !sortString.includes(letter)
+  );
+
+  arrayToSort.sort((a, b) => {
+    return sortString.indexOf(a) - sortString.indexOf(b);
+  });
+
+  const finalArray = [...arrayToSort, ...arrayNotToSort];
+
+  return finalArray;
+};
