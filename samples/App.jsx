@@ -1,6 +1,6 @@
 import OwnReact from "../src";
 import Component from "../src/Component";
-import { updateArray } from "./utils";
+import { updateArray, sortAlphabetByString } from "./utils";
 import List from "./List";
 
 const alphabetArray = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
@@ -11,6 +11,8 @@ class App extends Component {
     this.state = {
       alphabet: alphabetArray
     };
+    this.updateAlphabet = this.updateAlphabet.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
   }
 
   updateAlphabet() {
@@ -21,14 +23,35 @@ class App extends Component {
     });
   }
 
+  handleTextInput(event) {
+    const sortString = event.target.value.toUpperCase();
+    const { alphabet } = this.state;
+
+    const finalArray = sortAlphabetByString(alphabet, sortString);
+
+    this.setState({
+      alphabet: finalArray
+    });
+  }
+
   render() {
     const { alphabet } = this.state;
 
-    setTimeout(() => {
-      this.updateAlphabet();
-    }, 5000);
+    return (
+      <div>
+        <input
+          type="text"
+          onInput={this.handleTextInput}
+          style="display:block; margin-bottom: 20px;" // eslint-disable-line react/style-prop-object
+        />
 
-    return <List alphabet={alphabet} />;
+        <button onClick={this.updateAlphabet} type="button">
+          Обновить алфавит
+        </button>
+
+        <List alphabet={alphabet} />
+      </div>
+    );
   }
 }
 

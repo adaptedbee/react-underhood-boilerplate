@@ -17,3 +17,24 @@ export const updateArray = array => {
 
   return newArray;
 };
+
+export const sortAlphabetByString = (alphabetArray, sortString) => {
+  const arrayToSort = alphabetArray.filter(letter =>
+    sortString.includes(letter)
+  );
+  arrayToSort.sort((a, b) => {
+    return sortString.indexOf(a) - sortString.indexOf(b);
+  });
+
+  let j = 0;
+  const finalArray = alphabetArray.map(letter => {
+    if (sortString.includes(letter)) {
+      j += 1;
+      return arrayToSort[j - 1];
+    }
+
+    return letter;
+  });
+
+  return finalArray;
+};
