@@ -4,14 +4,22 @@ const ownPerformance = {
   statistics: {
     wrongRenderCounter: 0,
     totalTime: {},
-    isDisabled: false
+    isDisabled: process.env.NODE_ENV === "production"
   },
 
   start(markName) {
+    if (this.statistics.disabled) {
+      return;
+    }
+
     performance.mark(`${markName} start`);
   },
 
   end(markName) {
+    if (this.statistics.disabled) {
+      return;
+    }
+
     performance.mark(`${markName} end`);
   },
 
