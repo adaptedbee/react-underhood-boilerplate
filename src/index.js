@@ -1,4 +1,4 @@
-import _ from "lodash";
+import flatMap from "lodash/flatMap";
 
 import reconcile from "./reconcile";
 
@@ -18,7 +18,7 @@ class OwnReact {
       type,
       props: {
         ...props,
-        children: _.flatMap(children, child =>
+        children: flatMap(children, child =>
           typeof child === "string" ? this.createTextElement(child) : child
         )
       }

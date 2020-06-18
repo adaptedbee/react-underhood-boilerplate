@@ -1,5 +1,6 @@
 import instantiate from "./instantiate"; // eslint-disable-line import/no-cycle
 import updateDomProperties from "./updateDomProperties";
+import ownPerformance from "./ownPerformance";
 
 const reconcile = (parentDom, instance, element) => {
   let newInstance;
@@ -23,7 +24,9 @@ const reconcile = (parentDom, instance, element) => {
     typeof element.type === "string"
   ) {
     // Обновляем инстанс DOM-элемента
+    ownPerformance.start("DOM element update");
     updateDomProperties(instance.dom, instance.element.props, element.props);
+    ownPerformance.end("DOM element update");
     newInstance = { ...instance };
     newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
     newInstance.element = element;
@@ -31,6 +34,7 @@ const reconcile = (parentDom, instance, element) => {
   }
 
   // Обновляем инстанс компонента
+  ownPerformance.start("Component update");
   newInstance = { ...instance };
   newInstance.publicInstance.props = element.props;
   const childElement = newInstance.publicInstance.render();
@@ -39,6 +43,7 @@ const reconcile = (parentDom, instance, element) => {
   newInstance.dom = childInstance.dom;
   newInstance.childInstance = childInstance;
   newInstance.element = element;
+  ownPerformance.end("Component update");
 
   return newInstance;
 };
