@@ -1,14 +1,15 @@
 const { performance } = window;
 
 const ownPerformance = {
+  isDisabled: process.env.NODE_ENV === "production",
+
   statistics: {
     wrongRenderCounter: 0,
-    totalTime: {},
-    isDisabled: process.env.NODE_ENV === "production"
+    totalTime: {}
   },
 
   start(markName) {
-    if (this.statistics.disabled) {
+    if (this.isDisabled) {
       return;
     }
 
@@ -16,18 +17,15 @@ const ownPerformance = {
   },
 
   end(markName) {
-    if (this.statistics.disabled) {
+    if (this.isDisabled) {
       return;
     }
 
     performance.mark(`${markName} end`);
+    this.measure(markName);
   },
 
   measure(markName) {
-    if (this.statistics.disabled) {
-      return;
-    }
-
     const { duration } = performance.measure(
       `${markName} measure`,
       `${markName} start`,
@@ -44,17 +42,16 @@ const ownPerformance = {
   clear() {
     this.statistics = {
       wrongRenderCounter: 0,
-      totalTime: {},
-      isDisabled: false
+      totalTime: {}
     };
   },
 
   startTracking() {
-    this.statistics.disabled = false;
+    this.isDisabled = false;
   },
 
   stopTracking() {
-    this.statistics.disabled = true;
+    this.isDisabled = true;
   },
 
   print() {
@@ -63,6 +60,6 @@ const ownPerformance = {
   }
 };
 
-window.performance_OwnReact = ownPerformance.statistics;
+window.performance_OwnReact = ownPerformance;
 
 export default ownPerformance;

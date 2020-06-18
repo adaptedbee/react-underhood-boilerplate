@@ -1,11 +1,11 @@
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
 import ownPerformance from "./ownPerformance";
 
 const isEvent = name => name.startsWith("on");
 const isAttribute = name => !isEvent(name) && name !== "children";
 
 const updateDomProperties = (dom, prevProps, nextProps) => {
-  if (_.isEqual(prevProps, nextProps)) {
+  if (isEqual(prevProps, nextProps)) {
     ownPerformance.statistics.wrongRenderCounter += 1;
     return;
   }

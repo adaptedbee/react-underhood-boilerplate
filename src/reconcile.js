@@ -27,7 +27,6 @@ const reconcile = (parentDom, instance, element) => {
     ownPerformance.start("DOM element update");
     updateDomProperties(instance.dom, instance.element.props, element.props);
     ownPerformance.end("DOM element update");
-    ownPerformance.measure("DOM element update");
     newInstance = { ...instance };
     newInstance.childInstances = reconcileChildren(instance, element); // eslint-disable-line no-use-before-define
     newInstance.element = element;
@@ -45,7 +44,6 @@ const reconcile = (parentDom, instance, element) => {
   newInstance.childInstance = childInstance;
   newInstance.element = element;
   ownPerformance.end("Component update");
-  ownPerformance.measure("Component update");
 
   return newInstance;
 };

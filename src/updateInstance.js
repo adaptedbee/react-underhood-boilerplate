@@ -7,7 +7,6 @@ const updateInstance = internalInstance => {
   const { element } = internalInstance;
   reconcile(parentNode, internalInstance, element);
   ownPerformance.end("Full DOM update");
-  ownPerformance.measure("Full DOM update");
 };
 
 export default updateInstance;
